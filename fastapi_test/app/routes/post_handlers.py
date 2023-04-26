@@ -1,5 +1,6 @@
 # file: routes/post_handlers.py
 # =============================================
+
 import uuid
 from uuid import UUID
 
@@ -42,6 +43,9 @@ def create_post(post: Post):
     }
   )
 
+  # Print the newly created post
+  print(post)  # This will call the __str__ method of the Post class
+
   MY_POST.append(post_to_dict)
   return { "data": post_to_dict }
 
@@ -54,12 +58,8 @@ async def get_post_by_id(post_id: UUID):
   print(f"Searching for post_id: {post_id}")
 
   for post in MY_POST:
-    print(f"Comparing: {post['id']} with {str(post_id)}")
-    print(f"Type of post['id']: {type(post['id'])}, Type of post_id: {type(post_id)}")
-
     # converts both UUID's to strings
     if str(post["id"]) == str(post_id):
-      print("Match found, returning the post.")
       return { "post_details": post }
 
   raise HTTPException(
