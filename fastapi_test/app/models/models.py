@@ -1,17 +1,17 @@
 # file: models/models.py
 # =============================================
+from typing import Optional
 from uuid import UUID
 
 from pydantic import BaseModel
-from app.types.types import ResultType
 # =============================================
 
 class Post(BaseModel):
-  id: ResultType[UUID, None] = None
+  id: Optional[UUID] = None
   title: str
   content: str
-  published: ResultType[bool, None] = None
-  rating: ResultType[int, None] = None
+  published: Optional[bool] = None
+  rating: Optional[int] = None
 
   def __str__(self) -> str:
     rating_str = f'rating: {self.rating}' if self.rating is not None else ''

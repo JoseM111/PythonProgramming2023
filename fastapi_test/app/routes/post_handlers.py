@@ -11,12 +11,12 @@ router = APIRouter()
 
 MY_POST = [
   dict(
-    id="64867f5b-ef55-4128-808f-77a55f6154b0",
+    id=UUID("64867f5b-ef55-4128-808f-77a55f6154b0"),
     title="title post 1",
     content="First post"
   ),
   dict(
-    id="f89e5b43-a46d-43d6-b49c-897653b4a4da",
+    id=UUID("f89e5b43-a46d-43d6-b49c-897653b4a4da"),
     title="title post 2",
     content="Second post"
   ),
@@ -55,8 +55,10 @@ async def get_post_by_id(post_id: UUID):
 
   for post in MY_POST:
     print(f"Comparing: {post['id']} with {str(post_id)}")
+    print(f"Type of post['id']: {type(post['id'])}, Type of post_id: {type(post_id)}")
 
-    if post["id"] == str(post_id):
+    # converts both UUID's to strings
+    if str(post["id"]) == str(post_id):
       print("Match found, returning the post.")
       return { "post_details": post }
 
