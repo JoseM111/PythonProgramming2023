@@ -69,12 +69,23 @@ async def get_post_by_id(post_id: UUID):
     detail=f"Post with ID {post_id} not found"
   )
 
-@router.delete(path="/posts/{post_id}", status_code=status.HTTP_204_NO_CONTENT)
+@router.delete(path="/posts/{post_id}", status_code=status.HTTP_200_OK)
 async def delete_post(post_id: UUID):
   for index, post in enumerate(MY_POST):
     if str(post["id"]) == str(post_id):
-      del MY_POST[index]
-      return
+      # Remove and return item at index (default last).
+      # Raises IndexError if list is empty or index is out of range.
+      deleted_post = MY_POST.pop(index)
+
+      # could have a status code of `204` Not Found but
+      # using a status of `200` will display this message
+      # when the item is successfully deleted
+      response_success_msg = {
+        "message": f"Post with ID {post_id} has been deleted",
+        "deleted_post": deleted_post
+      }
+
+      return response_success_msg
 
   raise HTTPException(
     status_code=status.HTTP_404_NOT_FOUND,

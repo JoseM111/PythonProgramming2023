@@ -26,11 +26,13 @@ class Post(BaseModel):
     published_str = '' if not published_str else f',{custom_spaces}{published_str}'
     rating_str = '' if not rating_str else f',{custom_spaces}{rating_str}'
 
-    result = f"""post: {{
+    result = f"""
+    post: {{
       id: {self.id},
       title: {self.title},
       content: {self.content}{published_str}{rating_str}
-    }}""".replace('  ', ' ')  # Replace multiple spaces with a single space
+    }}
+    """.strip().replace('  ', ' ')  # Replace multiple spaces with a single space
 
     return result.strip()
 # =============================================
