@@ -16,20 +16,21 @@ class Post(BaseModel):
   rating: Optional[int] = None
 
   def __str__(self) -> str:
-    rating_str = f'rating: {self.rating}' if self.rating is not None else ''
-    published_str = f'published: {self.published}' if self.published is not None else ''
+    rating_str = '' if self.rating is None else f'rating: {self.rating}'
+    published_str = '' if self.published is None else f'published: {self.published}'
+
+    # Define a string with 6 spaces to use for indentation
+    custom_spaces = f'\n{"":6}'
 
     # Conditionally add newline before published_str and rating_str
-    published_str = f'{published_str}' if published_str else ''
-    rating_str = f'{rating_str}' if rating_str else ''
+    published_str = '' if not published_str else f',{custom_spaces}{published_str}'
+    rating_str = '' if not rating_str else f',{custom_spaces}{rating_str}'
 
     result = f"""post: {{
-           id: {self.id},
-           title: {self.title},
-           content: {self.content},
-           {published_str},
-           {rating_str}
-        }}""".strip().replace('  ', ' ') # Replace multiple spaces with a single space
+      id: {self.id},
+      title: {self.title},
+      content: {self.content}{published_str}{rating_str}
+    }}""".replace('  ', ' ')  # Replace multiple spaces with a single space
 
-    return result
+    return result.strip()
 # =============================================
