@@ -73,7 +73,7 @@ async def get_post_by_id(post_id: UUID):
   )
 
 # UPDATE ######################################
-@router.put(path="/posts/{post_id}", status_code=status.HTTP_200_OK)
+@router.put(path="/posts/{post_id}", status_code=status.HTTP_202_ACCEPTED)
 async def update_post(post_id: UUID, post: Post):
 
   for (index, current_post) in enumerate(MY_POST):
