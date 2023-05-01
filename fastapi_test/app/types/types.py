@@ -1,14 +1,9 @@
 # file: app/types/types.py
 # =============================================
 
-from typing import TypeVar, Union
+from typing import TypeAlias, Callable, Awaitable
+from fastapi import Request, Response
 # =============================================
 
-Void = None
-# =============================================
-
-# Custom ResultType class
-Type = TypeVar("Type")
-TypeNone = TypeVar("TypeNone")
-ResultType = Union[Type, TypeNone]
+RequestHandler: TypeAlias = Callable[[Request], Awaitable[Response]]
 # =============================================
