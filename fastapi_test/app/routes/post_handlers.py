@@ -1,6 +1,6 @@
 # file: routes/post_handlers.py
 # =============================================
-
+import logging
 import uuid
 from uuid import UUID
 
@@ -93,7 +93,7 @@ async def update_post(post_id: UUID, post: Post):
 
       # change back to an object to use the Post objects `__str__`
       updated_post_obj = Post.parse_obj(updated_post_to_dict)
-      print(updated_post_obj)
+      logging.info(msg=updated_post_obj)
 
       return {
         "message": f"Post with ID {post_id} has been updated",
